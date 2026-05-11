@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Send, Sparkles, CheckCircle2, Clock, Coffee, Moon, HeartPulse, AlertCircle, BatteryFull, BatteryMedium, BatteryLow, Smile, Wind, Frown, Meh, Check, ChevronRight, Flame, Calendar as CalendarIcon, BookOpen, Target, MessageCircle, Palette, Bell, Menu, X, Settings as SettingsIcon, LayoutDashboard } from 'lucide-react';
+import { Send, Sparkles, CheckCircle2, Clock, Coffee, Moon, HeartPulse, AlertCircle, BatteryFull, BatteryMedium, BatteryLow, Smile, Wind, Frown, Meh, Check, ChevronRight, Flame, Calendar as CalendarIcon, BookOpen, Target, MessageCircle, Palette, Bell, Menu, X, Settings as SettingsIcon, LayoutDashboard, Download } from 'lucide-react';
 import { getPauvelPlan } from './lib/gemini';
 import { initializeUser, savePlan, updatePlanTasks, getLatestPlan, addXP, auth } from './lib/firebase';
 import type { PauvelResponse } from './types';
@@ -66,6 +66,26 @@ export default function App() {
   const [completedTasks, setCompletedTasks] = useState<Set<number>>(new Set());
   const [currentPlanId, setCurrentPlanId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'focus' | 'calendar' | 'schedule' | 'chat' | 'guide' | 'alarms' | 'projects' | 'settings'>('focus');
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+
+  useEffect(() => {
+    const handleBeforeInstall = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
+    return () => window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+  }, []);
+
+  const handleInstall = async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      setDeferredPrompt(null);
+    }
+  };
 
   useEffect(() => {
     const savedTheme = localStorage.getItem('paubell_theme') || 'dark';
@@ -550,10 +570,15 @@ export default function App() {
                 </div>
              </div>
 
-             <div className="p-4 border-t border-slate-800/60">
+             <div className="p-4 border-t border-slate-800/60 space-y-3">
                 <button onClick={() => { setActiveTab('settings'); setIsSidebarOpen(false); }} className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${activeTab === 'settings' ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/20' : 'text-app-muted hover:bg-app-card hover:text-indigo-500'}`}>
                   <SettingsIcon className="w-4 h-4" /> Ajustes
                 </button>
+                {deferredPrompt && (
+                   <button onClick={handleInstall} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold transition-all bg-teal-500/10 text-teal-600 dark:text-teal-400 hover:bg-teal-500/20 shadow-sm border border-teal-500/20">
+                     <Download className="w-4 h-4" /> Instalar App
+                   </button>
+                 )}
              </div>
           </div>
         </>
