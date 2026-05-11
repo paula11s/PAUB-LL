@@ -20,8 +20,7 @@ service cloud.firestore {
 
     // USER VALIDATORS
     function isValidUser(data) {
-      return data.keys().hasAll(['uid', 'createdAt', 'updatedAt', 'isAnonymous']) &&
-             data.keys().size() == 4 &&
+      return data.keys().hasAll(['uid', 'createdAt', 'updatedAt', 'isAnonymous', 'email', 'career']) &&
              data.uid == request.auth.uid &&
              data.createdAt is timestamp &&
              data.updatedAt is timestamp &&
@@ -38,6 +37,53 @@ service cloud.firestore {
              data.prompt is string && data.prompt.size() <= 5000 &&
              data.data is map &&
              data.completedTasks is list && data.completedTasks.size() <= 100 &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp;
+    }
+
+    // ALARM VALIDATORS
+    function isValidAlarm(data) {
+      return data.keys().hasAll(['userId', 'time', 'title', 'enabled', 'type', 'createdAt', 'updatedAt']) &&
+             data.userId == request.auth.uid &&
+             data.time is string && data.time.size() <= 10 &&
+             data.title is string && data.title.size() <= 100 &&
+             data.enabled is bool &&
+             data.type is string && data.type.size() <= 20 &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp;
+    }
+
+    // CLASS VALIDATORS
+    function isValidClass(data) {
+      return data.keys().hasAll(['userId', 'day', 'time', 'subject', 'materials', 'createdAt', 'updatedAt']) &&
+             data.userId == request.auth.uid &&
+             data.day is string && data.day.size() <= 20 &&
+             data.time is string && data.time.size() <= 20 &&
+             data.subject is string && data.subject.size() <= 100 &&
+             data.materials is list && data.materials.size() <= 50 &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp;
+    }
+
+    // CALENDAR TASK VALIDATORS
+    function isValidCalendarTask(data) {
+      return data.keys().hasAll(['userId', 'date', 'title', 'completed', 'createdAt', 'updatedAt']) &&
+             data.userId == request.auth.uid &&
+             data.date is timestamp &&
+             data.title is string && data.title.size() <= 200 &&
+             data.completed is bool &&
+             data.createdAt is timestamp &&
+             data.updatedAt is timestamp;
+    }
+
+    // PROJECTS VALIDATORS
+    function isValidProject(data) {
+      return data.keys().hasAll(['userId', 'title', 'progress', 'isComplete', 'rewardOutfitId', 'createdAt', 'updatedAt']) &&
+             data.userId == request.auth.uid &&
+             data.title is string && data.title.size() <= 200 &&
+             data.progress is number &&
+             data.isComplete is bool &&
+             data.rewardOutfitId is string && data.rewardOutfitId.size() <= 50 &&
              data.createdAt is timestamp &&
              data.updatedAt is timestamp;
     }
@@ -65,7 +111,7 @@ service cloud.firestore {
                        incoming().uid == existing().uid &&
                        incoming().createdAt == existing().createdAt &&
                        incoming().updatedAt == request.time &&
-                       incoming().diff(existing()).affectedKeys().hasOnly(['updatedAt', 'isAnonymous']);
+                       incoming().diff(existing()).affectedKeys().hasOnly(['updatedAt', 'isAnonymous', 'career', 'email', 'outfit', 'unlockedOutfits']);
                        
       allow delete: if isSignedIn() && request.auth.uid == userId;
 
@@ -91,6 +137,83 @@ service cloud.firestore {
                          // Allow updating completedTasks and updatedAt only
                          incoming().diff(existing()).affectedKeys().hasOnly(['completedTasks', 'updatedAt']);
                          
+        allow delete: if isSignedIn() && request.auth.uid == userId;
+      }
+
+      match /alarms/{alarmId} {
+        allow get, list: if isSignedIn() && request.auth.uid == userId;
+        allow create: if isSignedIn() && isValidId(userId) && isValidId(alarmId) &&
+                         userId == request.auth.uid && isValidAlarm(incoming()) &&
+                         incoming().createdAt == request.time && incoming().updatedAt == request.time &&
+                         exists(/databases/$(database)/documents/users/$(request.auth.uid));
+        allow update: if isSignedIn() && isValidId(userId) && isValidId(alarmId) &&
+                         userId == request.auth.uid && isValidAlarm(incoming()) &&
+                         incoming().userId == existing().userId &&
+                         incoming().createdAt == existing().createdAt &&
+                         incoming().updatedAt == request.time &&
+                         incoming().diff(existing()).affectedKeys().hasOnly(['title', 'time', 'enabled', 'type', 'updatedAt']);
+        allow delete: if isSignedIn() && request.auth.uid == userId;
+      }
+
+      match /classes/{classId} {
+        allow get, list: if isSignedIn() && request.auth.uid == userId;
+        allow create: if isSignedIn() && isValidId(userId) && isValidId(classId) &&
+                         userId == request.auth.uid && isValidClass(incoming()) &&
+                         incoming().createdAt == request.time && incoming().updatedAt == request.time &&
+                         exists(/databases/$(database)/documents/users/$(request.auth.uid));
+        allow update: if isSignedIn() && isValidId(userId) && isValidId(classId) &&
+                         userId == request.auth.uid && isValidClass(incoming()) &&
+                         incoming().userId == existing().userId &&
+                         incoming().createdAt == existing().createdAt &&
+                         incoming().updatedAt == request.time &&
+                         incoming().diff(existing()).affectedKeys().hasOnly(['day', 'time', 'subject', 'materials', 'updatedAt']);
+        allow delete: if isSignedIn() && request.auth.uid == userId;
+      }
+
+      match /calendarTasks/{taskId} {
+        allow get, list: if isSignedIn() && request.auth.uid == userId;
+        allow create: if isSignedIn() && isValidId(userId) && isValidId(taskId) &&
+                         userId == request.auth.uid && isValidCalendarTask(incoming()) &&
+                         incoming().createdAt == request.time && incoming().updatedAt == request.time &&
+                         exists(/databases/$(database)/documents/users/$(request.auth.uid));
+        allow update: if isSignedIn() && isValidId(userId) && isValidId(taskId) &&
+                         userId == request.auth.uid && isValidCalendarTask(incoming()) &&
+                         incoming().userId == existing().userId &&
+                         incoming().createdAt == existing().createdAt &&
+                         incoming().updatedAt == request.time &&
+                         incoming().diff(existing()).affectedKeys().hasOnly(['title', 'completed', 'date', 'updatedAt']);
+        allow delete: if isSignedIn() && request.auth.uid == userId;
+      }
+      match /projects/{projectId} {
+        allow get, list: if isSignedIn() && request.auth.uid == userId;
+        allow create: if isSignedIn() && isValidId(userId) && isValidId(projectId) &&
+                         userId == request.auth.uid && isValidProject(incoming()) &&
+                         incoming().createdAt == request.time && incoming().updatedAt == request.time &&
+                         exists(/databases/$(database)/documents/users/$(request.auth.uid));
+        allow update: if isSignedIn() && isValidId(userId) && isValidId(projectId) &&
+                         userId == request.auth.uid && isValidProject(incoming()) &&
+                         incoming().userId == existing().userId &&
+                         incoming().createdAt == existing().createdAt &&
+                         incoming().updatedAt == request.time &&
+                         incoming().diff(existing()).affectedKeys().hasOnly(['title', 'progress', 'isComplete', 'rewardOutfitId', 'updatedAt']);
+        allow delete: if isSignedIn() && request.auth.uid == userId;
+      }
+      
+      match /messages/{messageId} {
+        allow get, list: if isSignedIn() && request.auth.uid == userId;
+        allow create: if isSignedIn() && isValidId(userId) && isValidId(messageId) &&
+                         userId == request.auth.uid && 
+                         incoming().keys().hasAny(['role', 'text', 'createdAt', 'mood', 'userId']) &&
+                         incoming().role is string && incoming().text is string &&
+                         incoming().createdAt == request.time &&
+                         exists(/databases/$(database)/documents/users/$(request.auth.uid));
+        allow delete: if isSignedIn() && request.auth.uid == userId;
+      }
+      
+      match /finals/{finalId} {
+        allow get, list: if isSignedIn() && request.auth.uid == userId;
+        allow create: if isSignedIn() && isValidId(userId) && isValidId(finalId) && userId == request.auth.uid;
+        allow update: if isSignedIn() && isValidId(userId) && isValidId(finalId) && userId == request.auth.uid;
         allow delete: if isSignedIn() && request.auth.uid == userId;
       }
     }

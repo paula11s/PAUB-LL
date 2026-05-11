@@ -6,11 +6,13 @@
       "type": "object",
       "properties": {
         "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "career": { "type": "string" },
         "createdAt": { "type": "string" },
         "updatedAt": { "type": "string" },
         "isAnonymous": { "type": "boolean" }
       },
-      "required": ["uid", "createdAt", "updatedAt", "isAnonymous"]
+      "required": ["uid", "createdAt", "updatedAt", "isAnonymous", "email", "career"]
     },
     "Plan": {
       "title": "Plan",

@@ -1,1 +1,50 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-app-bg: var(--app-bg);
+  --color-app-card: var(--app-card);
+  --color-app-text: var(--app-text);
+  --color-app-muted: var(--app-muted);
+}
+
+:root {
+  --app-bg: #0A0C10;
+  --app-card: #151921;
+  --app-text: #E2E8F0;
+  --app-muted: #94A3B8;
+}
+
+html.theme-light {
+  --app-bg: #F8FAFC;
+  --app-card: #FFFFFF;
+  --app-text: #334155;
+  --app-muted: #64748B;
+}
+
+body {
+  background-color: var(--app-bg);
+  color: var(--app-text);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hidden-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

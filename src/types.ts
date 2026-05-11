@@ -11,6 +11,7 @@ export interface PauvelResponse {
       prioridad: string;
       subpasos: string[];
       tiempo_estimado: string;
+      dificultad: 'baja' | 'media' | 'alta';
     }[];
     alertas_bienestar: {
       tipo: string;
