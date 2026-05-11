@@ -144,7 +144,7 @@ export default function App() {
       
     } catch (err) {
       console.error(err);
-      setError(err instanceof Error ? err.message : "Error al conectar con Paubéll.");
+      setError(err instanceof Error ? err.message : "Error al conectar con PAUBELL.");
     } finally {
       setLoadingAction(false);
     }
@@ -293,7 +293,7 @@ export default function App() {
           <button onClick={() => setStep('checkin')} className="ml-2 text-indigo-600 dark:text-indigo-400 font-bold hover:text-indigo-500 transition-colors">Cambiar</button>
         </div>
         <h1 className="text-4xl font-semibold text-indigo-50 mb-4">¿Qué responsabilidades tienes hoy?</h1>
-        <p className="text-slate-400 text-sm leading-relaxed max-w-lg mx-auto">Paubéll adaptará tu carga de trabajo a tu nivel de energía actual y profesión ({userProfile?.career}).</p>
+        <p className="text-slate-400 text-sm leading-relaxed max-w-lg mx-auto">PAUBELL adaptará tu carga de trabajo a tu nivel de energía actual y profesión ({userProfile?.career}).</p>
       </div>
 
       <form onSubmit={handleSubmit} className="relative w-full rounded-3xl shadow-2xl">
@@ -319,7 +319,7 @@ export default function App() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 flex-1 min-h-0">
           <div className="lg:col-span-4 flex flex-col gap-4 overflow-y-auto hidden-scrollbar pr-2 pb-4 lg:pb-0">
             <div className={`p-5 rounded-2xl shrink-0 ${cardBg}`}>
-              <h2 className="text-[10px] font-bold tracking-widest text-indigo-400 uppercase mb-3 flex items-center gap-2"><Smile className="w-3.5 h-3.5" /> Mensaje de Paubéll</h2>
+              <h2 className="text-[10px] font-black tracking-[0.2em] text-indigo-500 dark:text-indigo-400 uppercase mb-3 flex items-center gap-2"><Smile className="w-3.5 h-3.5" /> MENSAJE DE PAUBELL</h2>
               <p className="text-slate-200 text-sm leading-relaxed font-medium mb-4">"{data.interaccion.mensaje_ia}"</p>
               <div className="px-3 py-2 rounded-xl bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 italic font-medium shadow-inner text-xs">{data.interaccion.frase_motivacional}</div>
             </div>
@@ -473,7 +473,7 @@ export default function App() {
           <div className="md:hidden fixed top-0 inset-x-0 h-16 bg-app-bg/90 backdrop-blur-md border-b border-slate-200/50 dark:border-slate-800/60 z-50 flex items-center justify-between px-4">
             <div className="flex items-center gap-2">
               <PaubellGuide className="w-8 h-8" mood="calm" outfit={userProfile?.outfit || 'default'} />
-              <span className="font-semibold text-xl text-app-text">Paubéll</span>
+              <span className="font-black text-xl text-app-text tracking-tighter">PAUBELL</span>
             </div>
             <button onClick={() => setIsSidebarOpen(true)} className="p-2 text-app-muted hover:text-indigo-500">
               <Menu className="w-6 h-6" />
@@ -492,7 +492,7 @@ export default function App() {
              <div className="p-6 border-b border-slate-800/60 flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <PaubellGuide className="w-10 h-10" mood="calm" outfit={userProfile?.outfit || 'default'} />
-                  <span className="font-semibold text-2xl tracking-tight text-app-text">Paubéll</span>
+                  <span className="font-black text-2xl tracking-tighter text-app-text">PAUBELL</span>
                 </div>
                 <button onClick={() => setIsSidebarOpen(false)} className="md:hidden p-1 text-slate-400 hover:text-white">
                   <X className="w-6 h-6" />
@@ -521,7 +521,7 @@ export default function App() {
                 </div>
 
                 <div className="space-y-4">
-                  <p className="text-[10px] font-bold text-app-muted uppercase tracking-widest px-3">Progreso de Paubéll</p>
+                  <p className="text-[10px] font-black text-app-muted uppercase tracking-[0.2em] px-3">PROGRESO DE PAUBELL</p>
                   <ExpBar 
                     xp={userProfile?.xp || 0} 
                     level={userProfile?.level || 1} 

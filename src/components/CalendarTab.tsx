@@ -175,7 +175,7 @@ export const CalendarTab: React.FC<{ userProfile?: any }> = ({ userProfile }) =>
             <div className="bg-white/5 backdrop-blur-xl border border-white/5 rounded-[2rem] p-6 flex items-center gap-5 shadow-xl">
               <PaubellGuide className="w-16 h-16 flex-shrink-0 drop-shadow-xl" mood={tip.mood} outfit={userProfile?.outfit || 'default'} />
               <div className="space-y-1">
-                <p className="text-[10px] uppercase font-bold tracking-widest text-indigo-400">Consejo de Paubéll</p>
+                <p className="text-[10px] uppercase font-black tracking-[0.2em] text-indigo-500">CONSEJO DE PAUBELL</p>
                 <p className="text-slate-300 text-sm leading-relaxed italic pr-2">"{tip.text}"</p>
               </div>
             </div>

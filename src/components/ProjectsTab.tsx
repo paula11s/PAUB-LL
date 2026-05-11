@@ -104,7 +104,7 @@ export const ProjectsTab: React.FC<{ onClickShop: () => void; userProfile?: any 
     <div className="max-w-4xl mx-auto space-y-8 pb-20 pt-8">
       <div className="bg-indigo-500/10 dark:bg-indigo-900/30 border border-indigo-500/30 px-6 py-4 rounded-2xl shadow-sm backdrop-blur-sm">
         <p className="text-indigo-600 dark:text-indigo-200 text-sm font-medium leading-relaxed flex items-center justify-between">
-          <span>"Cada vez que completas un Trabajo Final, mi energía crece y podrás desbloquear nuevas prendas." - Paubéll</span>
+          <span className="font-medium">"Cada vez que completas un Trabajo Final, mi energía crece y podrás desbloquear nuevas prendas." - <span className="font-black text-indigo-500">PAUBELL</span></span>
           <button onClick={onClickShop} className="text-indigo-500 dark:text-indigo-400 font-bold uppercase tracking-wider hover:text-indigo-400 dark:hover:text-indigo-300 text-xs flex items-center gap-1">Ver Accesorios <Target className="w-3 h-3"/></button>
         </p>
       </div>

@@ -80,7 +80,7 @@ export const ChatTab: React.FC<{ outfit?: string }> = ({ outfit = 'default' }) =
   return (
     <div className="flex flex-col h-[calc(100vh-160px)] max-w-4xl mx-auto bg-app-card border border-slate-200 dark:border-slate-800 rounded-3xl overflow-hidden shadow-xl">
       <div className="p-4 bg-app-bg border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
-        <h3 className="text-app-text font-bold flex items-center gap-2"><Sparkles className="w-5 h-5 text-indigo-400" /> Chat con Paubéll</h3>
+        <h3 className="text-app-text font-black tracking-tight flex items-center gap-2 uppercase"><Sparkles className="w-5 h-5 text-indigo-500" /> CHAT CON PAUBELL</h3>
         <div className="flex gap-2">
           <button onClick={handleClearChat} title="Nuevo Chat" className="bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-500/20 px-3 py-1.5 rounded-lg text-sm font-semibold flex items-center gap-2 transition-colors">
             <MessageSquarePlus className="w-4 h-4" /> Nuevo Chat
@@ -127,7 +127,7 @@ export const ChatTab: React.FC<{ outfit?: string }> = ({ outfit = 'default' }) =
             </div>
             <div className="p-4 rounded-2xl max-w-[80%] bg-app-bg border border-slate-200 dark:border-slate-800 text-app-muted rounded-tl-none flex items-center gap-2">
                <Loader2 className="w-4 h-4 animate-spin" />
-               <span className="text-xs font-bold uppercase tracking-widest">Paubéll está escribiendo...</span>
+               <span className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-500">PAUBELL está escribiendo...</span>
             </div>
           </div>
         )}

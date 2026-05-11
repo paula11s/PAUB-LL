@@ -35,73 +35,64 @@ export const PaubellGuide: React.FC<{ className?: string, mood?: 'happy' | 'focu
 
       {/* HORNS */}
       <path d="M50 45 C15 -10, 40 -15, 65 20" fill="none" stroke={`url(#${mintHornId})`} strokeWidth="18" strokeLinecap="round" />
-      <circle cx="35" cy="5" r="7" fill="#6EE7B7" />
-      <path d="M150 45 C185 -10, 160 -15, 135 20" fill="none" stroke={`url(#${mintHornId})`} strokeWidth="18" strokeLinecap="round" />
-      <circle cx="165" cy="5" r="7" fill="#6EE7B7" />
-
-      {/* ARMS */}
-      <path d="M45 120 L25 150 A 10 10 0 0 0 45 160 Z" fill={`url(#${lilacHoodId})`} />
-      <path d="M155 120 L175 150 A 10 10 0 0 1 155 160 Z" fill={`url(#${lilacHoodId})`} />
+      <circle cx="35" cy="5" r="7" fill="#A7F3D0" />
+      <circle cx="33" cy="3" r="2" fill="#FFFFFF" opacity="0.6" />
       
-      {/* HANDS (Mint) */}
-      <circle cx="30" cy="155" r="12" fill={`url(#${mintBodyId})`} />
-      <circle cx="45" cy="160" r="10" fill={`url(#${mintBodyId})`} />
-      <circle cx="170" cy="155" r="12" fill={`url(#${mintBodyId})`} />
-      <circle cx="155" cy="160" r="10" fill={`url(#${mintBodyId})`} />
+      <path d="M150 45 C185 -10, 160 -15, 135 20" fill="none" stroke={`url(#${mintHornId})`} strokeWidth="18" strokeLinecap="round" />
+      <circle cx="165" cy="5" r="7" fill="#A7F3D0" />
+      <circle cx="163" cy="3" r="2" fill="#FFFFFF" opacity="0.6" />
 
-      {/* LEGS & SHOES */}
-      <rect x="70" y="155" width="25" height="18" rx="5" fill={`url(#${lilacHoodId})`} />
-      <rect x="105" y="155" width="25" height="18" rx="5" fill={`url(#${lilacHoodId})`} />
-      <rect x="75" y="170" width="15" height="12" fill="#FFFFFF" />
-      <rect x="110" y="170" width="15" height="12" fill="#FFFFFF" />
-      <path d="M70 180 Q65 195 85 195 L90 195 Q90 180 85 180 Z" fill={`url(#${mintBodyId})`} />
-      <path d="M130 180 Q135 195 115 195 L110 195 Q110 180 115 180 Z" fill={`url(#${mintBodyId})`} />
+      {/* ARMS - Re-integrated but maintaining round volume */}
+      <path d="M60 120 Q30 135 30 155" stroke={`url(#${lilacHoodId})`} strokeWidth="22" strokeLinecap="round" fill="none" />
+      <path d="M140 120 Q170 135 170 155" stroke={`url(#${lilacHoodId})`} strokeWidth="22" strokeLinecap="round" fill="none" />
+      
+      {/* HANDS (Mint) - Connected hands */}
+      <circle cx="30" cy="155" r="14" fill={`url(#${mintBodyId})`} />
+      <circle cx="170" cy="155" r="14" fill={`url(#${mintBodyId})`} />
 
-      {/* BODY */}
-      <path d="M100 170 C50 170, 50 80, 100 80 C150 80, 150 170, 100 170 Z" fill={`url(#${mintBodyId})`} />
+      {/* LEGS - Round and connected bottom */}
+      <rect x="70" y="160" width="28" height="25" rx="10" fill={`url(#${lilacHoodId})`} />
+      <rect x="102" y="160" width="28" height="25" rx="10" fill={`url(#${lilacHoodId})`} />
+      <path d="M84 185 L84 198 Q84 205 70 205" stroke={`url(#${mintBodyId})`} strokeWidth="14" strokeLinecap="round" fill="none" />
+      <path d="M116 185 L116 198 Q116 205 130 205" stroke={`url(#${mintBodyId})`} strokeWidth="14" strokeLinecap="round" fill="none" />
 
-      {/* NECK RUFFLES */}
+      {/* BODY - Rounder and friendlier */}
+      <path d="M100 175 C50 175, 50 85, 100 85 C150 85, 150 175, 100 175 Z" fill={`url(#${mintBodyId})`} />
+
+      {/* NECK RUFFLES - Decorative and bridging */}
       <path d="M60 100 Q70 115 80 100 Q90 115 100 100 Q110 115 120 100 Q130 115 140 100 Z" fill="#FFFFFF" />
 
-      {/* HOOD / HEAD */}
+      {/* HOOD / HEAD - Classic Paubell proportions */}
       <rect x="30" y="25" width="140" height="90" rx="35" fill={`url(#${lilacHoodId})`} />
       <circle cx="100" cy="35" r="10" fill="#34D399" />
       <circle cx="98" cy="33" r="3" fill="#FFFFFF" opacity="0.6" />
-      <circle cx="75" cy="35" r="4" fill="#6D28D9" opacity="0.4" />
-      <circle cx="85" cy="35" r="4" fill="#6D28D9" opacity="0.4" />
-      <circle cx="115" cy="35" r="4" fill="#6D28D9" opacity="0.4" />
-      <circle cx="125" cy="35" r="4" fill="#6D28D9" opacity="0.4" />
-
-      {/* SIDE FLAPS */}
-      <path d="M35 50 Q20 60 25 70 Q15 80 25 90 Q20 100 35 105 Z" fill={`url(#${lilacHoodId})`} />
-      <path d="M165 50 Q180 60 175 70 Q185 80 175 90 Q180 100 165 105 Z" fill={`url(#${lilacHoodId})`} />
 
       {/* FACE */}
       <rect x="45" y="45" width="110" height="65" rx="25" fill={`url(#${skinId})`} />
 
-      {/* EYES - Kinder and more expressive */}
+      {/* EYES - Expressive Kawaii style */}
       <g>
-        <circle cx="75" cy="72" r="15" fill="#1E293B" />
-        <circle cx="72" cy="65" r="5" fill="#FFFFFF" />
+        <circle cx="75" cy="72" r="16" fill="#1E293B" />
+        <circle cx="71" cy="65" r="6" fill="#FFFFFF" />
         <circle cx="82" cy="78" r="3" fill="#FFFFFF" opacity="0.6" />
         
-        <circle cx="125" cy="72" r="15" fill="#1E293B" />
-        <circle cx="122" cy="65" r="5" fill="#FFFFFF" />
+        <circle cx="125" cy="72" r="16" fill="#1E293B" />
+        <circle cx="121" cy="65" r="6" fill="#FFFFFF" />
         <circle cx="132" cy="78" r="3" fill="#FFFFFF" opacity="0.6" />
       </g>
 
-      {/* EYEBROWS - Higher and rounder */}
+      {/* EYEBROWS */}
       <path d="M60 52 Q75 42 90 52" stroke="#475569" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.4" />
       <path d="M140 52 Q125 42 110 52" stroke="#475569" strokeWidth="3" strokeLinecap="round" fill="none" opacity="0.4" />
 
       {/* CHEEKS */}
-      <ellipse cx="60" cy="90" rx="14" ry="7" fill="#F43F5E" opacity="0.25" />
-      <ellipse cx="140" cy="90" rx="14" ry="7" fill="#F43F5E" opacity="0.25" />
+      <ellipse cx="60" cy="90" rx="14" ry="7" fill="#F43F5E" opacity="0.2" />
+      <ellipse cx="140" cy="90" rx="14" ry="7" fill="#F43F5E" opacity="0.2" />
 
       {/* LITTLE NOSE */}
       <path d="M98 75 Q100 78 102 75" fill="none" stroke="#D1D5DB" strokeWidth="2" strokeLinecap="round" />
 
-      {/* MOUTH based on mood */}
+      {/* MOUTH - Expressive Cute style */}
       {mood === 'happy' && (
         <g>
           <path d="M90 85 Q100 110 110 85 Z" fill="#9F1239" stroke="#7E22CE" strokeWidth="1" />
